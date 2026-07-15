@@ -8,9 +8,9 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', system-ui, sans-serif;
-    background: linear-gradient(160deg, #6f4e37 0%, #a9744f 45%, #d9b382 100%);
+    background: linear-gradient(160deg, #ffb3c1 0%, #ffd6a5 35%, #caffbf 70%, #a0c4ff 100%);
     min-height: 100vh;
-    color: #3a2a1e;
+    color: #3a2a4e;
     overflow-x: hidden;
     position: relative;
   }
@@ -21,7 +21,7 @@
     bottom: -60px;
     width: 14px;
     height: 60px;
-    background: radial-gradient(ellipse at center, rgba(255,250,240,0.55), rgba(255,250,240,0));
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.7), rgba(255,255,255,0));
     border-radius: 50%;
     animation: rise linear infinite;
     pointer-events: none;
@@ -46,15 +46,16 @@
   }
   .hero h1 {
     font-size: 2.7rem;
-    color: #fff8ef;
-    text-shadow: 0 2px 10px rgba(60,40,25,0.5);
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(120,70,120,0.45);
     margin-bottom: 8px;
     letter-spacing: 0.5px;
   }
   .hero .sub {
     font-size: 1.15rem;
-    color: #fdf1e3;
+    color: #fff;
     font-style: italic;
+    text-shadow: 0 1px 6px rgba(120,70,120,0.35);
   }
   .cup {
     font-size: 4rem;
@@ -74,21 +75,21 @@
     margin: 24px 0 8px;
   }
   .tag {
-    background: rgba(255,248,239,0.9);
-    color: #6f4e37;
+    background: rgba(255,255,255,0.94);
+    color: #c74b8b;
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 0.9rem;
     font-weight: 600;
-    box-shadow: 0 3px 8px rgba(60,40,25,0.25);
+    box-shadow: 0 3px 8px rgba(120,70,120,0.2);
   }
 
   .card, .form-card, .messages-section {
-    background: rgba(255,250,244,0.96);
+    background: rgba(255,255,255,0.96);
     border-radius: 18px;
     padding: 26px;
     margin-bottom: 22px;
-    box-shadow: 0 8px 24px rgba(60,40,25,0.28);
+    box-shadow: 0 8px 24px rgba(120,70,120,0.2);
   }
 
   .card p { font-size: 1.05rem; line-height: 1.6; text-align: center; }
@@ -96,7 +97,7 @@
   .form-title, .messages-title {
     font-size: 1.35rem;
     font-weight: 700;
-    color: #6f4e37;
+    color: #c74b8b;
     margin-bottom: 18px;
     text-align: center;
   }
@@ -105,20 +106,20 @@
   input, textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #d9b382;
+    border: 2px solid #ffb3c1;
     border-radius: 10px;
     font-size: 1rem;
     font-family: inherit;
-    background: #fffdf9;
+    background: #fffafc;
   }
-  input:focus, textarea:focus { outline: none; border-color: #a9744f; }
+  input:focus, textarea:focus { outline: none; border-color: #c74b8b; }
   textarea { min-height: 90px; resize: vertical; }
 
   .submit-btn {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #6f4e37, #a9744f);
-    color: #fff8ef;
+    background: linear-gradient(135deg, #ff8fab, #c74b8b);
+    color: #fff;
     border: none;
     border-radius: 12px;
     font-size: 1.05rem;
@@ -126,7 +127,7 @@
     cursor: pointer;
     transition: transform 0.15s, box-shadow 0.15s;
   }
-  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,40,25,0.35); }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(120,70,120,0.3); }
   .submit-btn:disabled { opacity: 0.6; cursor: default; }
 
   .success-msg, .error-msg {
@@ -139,31 +140,33 @@
   .error-msg { color: #b23b3b; }
   .success-msg.show, .error-msg.show { display: block; }
 
-  .messages-count { text-align: center; color: #a9744f; font-weight: 600; margin-bottom: 16px; }
+  .messages-count { text-align: center; color: #c74b8b; font-weight: 600; margin-bottom: 16px; }
   .message-item {
-    background: #fdf4e8;
-    border-left: 4px solid #a9744f;
+    background: #fff0f6;
+    border-left: 4px solid #ff8fab;
     padding: 14px 16px;
     border-radius: 8px;
     margin-bottom: 12px;
   }
-  .message-item .msg-name { font-weight: 700; color: #6f4e37; margin-bottom: 4px; }
+  .message-item .msg-name { font-weight: 700; color: #c74b8b; margin-bottom: 4px; }
   .message-item .msg-text { line-height: 1.5; }
-  .message-item .msg-date { font-size: 0.78rem; color: #b09a82; margin-top: 6px; }
+  .message-item .msg-date { font-size: 0.78rem; color: #c0a8b8; margin-top: 6px; }
 
-  .loading-spinner, .no-messages { text-align: center; color: #a9744f; padding: 20px; }
-  .footer-note { text-align: center; color: #fdf1e3; font-size: 0.95rem; margin-top: 10px; }
+  .loading-spinner, .no-messages { text-align: center; color: #c74b8b; padding: 20px; }
+  .footer-note { text-align: center; color: #fff; font-size: 0.95rem; margin-top: 10px; text-shadow: 0 1px 4px rgba(120,70,120,0.3); }
 
   /* little floating language greetings */
   .greet {
     position: fixed;
-    font-size: 1rem;
-    color: rgba(255,248,239,0.5);
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 600;
     font-style: italic;
     pointer-events: none;
     animation: drift linear infinite;
     z-index: 1;
     white-space: nowrap;
+    text-shadow: 0 1px 4px rgba(120,70,120,0.25);
   }
   @keyframes drift {
     0%   { transform: translateX(0) translateY(0); opacity: 0; }
@@ -182,28 +185,41 @@
   <div class="steam" style="left:75%; animation-duration:11s; animation-delay:1s;"></div>
   <div class="steam" style="left:88%; animation-duration:8.5s; animation-delay:3s;"></div>
 
-  <!-- floating greetings (generic "hello" style words, no specific nationality tied to Johanna) -->
-  <div class="greet" style="top:20%; left:5%; animation-duration:14s; animation-delay:0s;">hello · bonjour · hola</div>
-  <div class="greet" style="top:45%; left:70%; animation-duration:16s; animation-delay:3s;">ciao · hallo · olá</div>
-  <div class="greet" style="top:68%; left:10%; animation-duration:15s; animation-delay:6s;">salut · hej · ahoj</div>
+  <!-- lots of floating "hello" greetings across many languages, no nationality tied to Johanna -->
+  <div class="greet" style="top:12%; left:4%;  animation-duration:14s; animation-delay:0s;">Hello</div>
+  <div class="greet" style="top:18%; left:64%; animation-duration:16s; animation-delay:1s;">Bonjour</div>
+  <div class="greet" style="top:24%; left:22%; animation-duration:15s; animation-delay:2s;">Hola</div>
+  <div class="greet" style="top:30%; left:78%; animation-duration:17s; animation-delay:3s;">Ciao</div>
+  <div class="greet" style="top:36%; left:8%;  animation-duration:13s; animation-delay:4s;">Hallo</div>
+  <div class="greet" style="top:42%; left:52%; animation-duration:18s; animation-delay:1.5s;">Olá</div>
+  <div class="greet" style="top:48%; left:30%; animation-duration:15.5s; animation-delay:5s;">こんにちは</div>
+  <div class="greet" style="top:54%; left:72%; animation-duration:16.5s; animation-delay:2.5s;">你好</div>
+  <div class="greet" style="top:60%; left:6%;  animation-duration:14.5s; animation-delay:6s;">Привет</div>
+  <div class="greet" style="top:66%; left:44%; animation-duration:17.5s; animation-delay:3.5s;">안녕하세요</div>
+  <div class="greet" style="top:72%; left:80%; animation-duration:15s; animation-delay:4.5s;">مرحبا</div>
+  <div class="greet" style="top:78%; left:18%; animation-duration:16s; animation-delay:0.5s;">नमस्ते</div>
+  <div class="greet" style="top:15%; left:40%; animation-duration:18.5s; animation-delay:5.5s;">Hej</div>
+  <div class="greet" style="top:84%; left:58%; animation-duration:14s; animation-delay:6.5s;">Salut</div>
+  <div class="greet" style="top:50%; left:88%; animation-duration:17s; animation-delay:7s;">Xin chào</div>
+  <div class="greet" style="top:90%; left:32%; animation-duration:15.5s; animation-delay:2s;">Γεια σου</div>
 
   <div class="container">
     <div class="hero">
       <div class="cup">☕</div>
       <h1>Happy Birthday, Johanna!</h1>
-      <div class="sub">Here's to warm mugs, full hearts, and new words.</div>
+      <div class="sub">Today, the world can wait. This one's just for you.</div>
     </div>
 
     <div class="vibe-tags">
       <span class="tag">☕ Coffee First</span>
       <span class="tag">💛 Devoted Mom</span>
-      <span class="tag">🤗 The Caretaker</span>
-      <span class="tag">🗺️ Language Lover</span>
-      <span class="tag">📚 Forever Learning</span>
+      <span class="tag">🌍 Polyglot at Heart</span>
+      <span class="tag">🗣️ Speaks the World</span>
+      <span class="tag">🌸 Deserves a Break</span>
     </div>
 
     <div class="card">
-      <p>To someone who pours warmth into everyone around her — as a mom, a caretaker, and a friend — and still finds room to chase a new language and a good cup of coffee. Wishing you a day as rich as your favorite brew. 🎉</p>
+      <p>To someone who gives so much to everyone around her, as a mom, a friend, and the person who somehow speaks to the whole world in its own language. You work harder than anyone, so today we're asking one thing: slow down, pour yourself a good cup, and take this day just for you. You've earned every minute of it. 🎉🌸</p>
     </div>
 
     <div class="form-card">
