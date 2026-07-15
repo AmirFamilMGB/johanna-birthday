@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Johanna!</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(160deg, #6f4e37 0%, #a9744f 45%, #d9b382 100%);
+    min-height: 100vh;
+    color: #3a2a1e;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Rising steam / warmth */
+  .steam {
+    position: fixed;
+    bottom: -60px;
+    width: 14px;
+    height: 60px;
+    background: radial-gradient(ellipse at center, rgba(255,250,240,0.55), rgba(255,250,240,0));
+    border-radius: 50%;
+    animation: rise linear infinite;
+    pointer-events: none;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    20%  { opacity: 0.8; }
+    100% { transform: translateY(-105vh) scale(1.8); opacity: 0; }
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-size: 2.7rem;
+    color: #fff8ef;
+    text-shadow: 0 2px 10px rgba(60,40,25,0.5);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .hero .sub {
+    font-size: 1.15rem;
+    color: #fdf1e3;
+    font-style: italic;
+  }
+  .cup {
+    font-size: 4rem;
+    display: inline-block;
+    animation: wobble 3s ease-in-out infinite;
+  }
+  @keyframes wobble {
+    0%,100% { transform: rotate(-4deg); }
+    50%     { transform: rotate(4deg); }
+  }
+
+  .vibe-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 24px 0 8px;
+  }
+  .tag {
+    background: rgba(255,248,239,0.9);
+    color: #6f4e37;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(60,40,25,0.25);
+  }
+
+  .card, .form-card, .messages-section {
+    background: rgba(255,250,244,0.96);
+    border-radius: 18px;
+    padding: 26px;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 24px rgba(60,40,25,0.28);
+  }
+
+  .card p { font-size: 1.05rem; line-height: 1.6; text-align: center; }
+
+  .form-title, .messages-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #6f4e37;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #d9b382;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fffdf9;
+  }
+  input:focus, textarea:focus { outline: none; border-color: #a9744f; }
+  textarea { min-height: 90px; resize: vertical; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #6f4e37, #a9744f);
+    color: #fff8ef;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(60,40,25,0.35); }
+  .submit-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .success-msg, .error-msg {
+    text-align: center;
+    margin-top: 14px;
+    font-weight: 600;
+    display: none;
+  }
+  .success-msg { color: #4a7c2f; }
+  .error-msg { color: #b23b3b; }
+  .success-msg.show, .error-msg.show { display: block; }
+
+  .messages-count { text-align: center; color: #a9744f; font-weight: 600; margin-bottom: 16px; }
+  .message-item {
+    background: #fdf4e8;
+    border-left: 4px solid #a9744f;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .message-item .msg-name { font-weight: 700; color: #6f4e37; margin-bottom: 4px; }
+  .message-item .msg-text { line-height: 1.5; }
+  .message-item .msg-date { font-size: 0.78rem; color: #b09a82; margin-top: 6px; }
+
+  .loading-spinner, .no-messages { text-align: center; color: #a9744f; padding: 20px; }
+  .footer-note { text-align: center; color: #fdf1e3; font-size: 0.95rem; margin-top: 10px; }
+
+  /* little floating language greetings */
+  .greet {
+    position: fixed;
+    font-size: 1rem;
+    color: rgba(255,248,239,0.5);
+    font-style: italic;
+    pointer-events: none;
+    animation: drift linear infinite;
+    z-index: 1;
+    white-space: nowrap;
+  }
+  @keyframes drift {
+    0%   { transform: translateX(0) translateY(0); opacity: 0; }
+    15%  { opacity: 0.7; }
+    85%  { opacity: 0.7; }
+    100% { transform: translateX(60px) translateY(-40px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- steam elements -->
+  <div class="steam" style="left:15%; animation-duration:8s; animation-delay:0s;"></div>
+  <div class="steam" style="left:35%; animation-duration:10s; animation-delay:2s;"></div>
+  <div class="steam" style="left:55%; animation-duration:9s; animation-delay:4s;"></div>
+  <div class="steam" style="left:75%; animation-duration:11s; animation-delay:1s;"></div>
+  <div class="steam" style="left:88%; animation-duration:8.5s; animation-delay:3s;"></div>
+
+  <!-- floating greetings (generic "hello" style words, no specific nationality tied to Johanna) -->
+  <div class="greet" style="top:20%; left:5%; animation-duration:14s; animation-delay:0s;">hello · bonjour · hola</div>
+  <div class="greet" style="top:45%; left:70%; animation-duration:16s; animation-delay:3s;">ciao · hallo · olá</div>
+  <div class="greet" style="top:68%; left:10%; animation-duration:15s; animation-delay:6s;">salut · hej · ahoj</div>
+
+  <div class="container">
+    <div class="hero">
+      <div class="cup">☕</div>
+      <h1>Happy Birthday, Johanna!</h1>
+      <div class="sub">Here's to warm mugs, full hearts, and new words.</div>
+    </div>
+
+    <div class="vibe-tags">
+      <span class="tag">☕ Coffee First</span>
+      <span class="tag">💛 Devoted Mom</span>
+      <span class="tag">🤗 The Caretaker</span>
+      <span class="tag">🗺️ Language Lover</span>
+      <span class="tag">📚 Forever Learning</span>
+    </div>
+
+    <div class="card">
+      <p>To someone who pours warmth into everyone around her — as a mom, a caretaker, and a friend — and still finds room to chase a new language and a good cup of coffee. Wishing you a day as rich as your favorite brew. 🎉</p>
+    </div>
+
+    <div class="form-card">
+      <div class="form-title">Leave Your Birthday Wish 🎉</div>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="nameInput" placeholder="e.g. Amir from ERAD">
+      </div>
+      <div class="form-group">
+        <label>Your Message for Johanna</label>
+        <textarea id="messageInput" placeholder="Write something warm, funny, or heartfelt..."></textarea>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitMessage()">Send Birthday Wishes ☕</button>
+      <div class="success-msg" id="successMsg">Your message has been added to Johanna's card! 🎉</div>
+      <div class="error-msg" id="errorMsg">Something went wrong. Please try again!</div>
+    </div>
+
+    <div class="messages-section">
+      <div class="messages-title">Birthday Messages 💛</div>
+      <div class="messages-count" id="messagesCount"></div>
+      <div id="messagesWall">
+        <div class="loading-spinner" id="loadingSpinner">Loading birthday wishes…</div>
+        <div class="no-messages" id="noMessages" style="display:none;">Be the first to leave a birthday wish for Johanna!</div>
+      </div>
+    </div>
+
+    <div class="footer-note">Made with ☕ and 💛 for Johanna's Birthday</div>
+  </div>
+
+<script>
+  // ============================================================
+  // CONFIGURATION: paste your Google Apps Script web app URL below
+  // ============================================================
+  const WEBAPP_URL = https://script.google.com/macros/s/AKfycbzRvbCmP4MmgG7D-rOQAujWTmoDl3hHVzNF4BTnUF6LCKA8W-KIqeGthVExxdcJYJRuOA/exec;
+  // ============================================================
+
+  function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function renderMessages(messages) {
+    const wall = document.getElementById('messagesWall');
+    const noMsg = document.getElementById('noMessages');
+    const countEl = document.getElementById('messagesCount');
+    const spinner = document.getElementById('loadingSpinner');
+    spinner.style.display = 'none';
+
+    if (!messages || messages.length === 0) {
+      noMsg.style.display = 'block';
+      countEl.textContent = '';
+      return;
+    }
+    noMsg.style.display = 'none';
+    countEl.textContent = messages.length + (messages.length === 1 ? ' wish' : ' wishes') + ' so far!';
+
+    const existing = wall.querySelectorAll('.message-item');
+    existing.forEach(function(el){ el.remove(); });
+
+    messages.slice().reverse().forEach(function(m) {
+      const item = document.createElement('div');
+      item.className = 'message-item';
+      item.innerHTML =
+        '<div class="msg-name">' + escapeHTML(m.name) + '</div>' +
+        '<div class="msg-text">' + escapeHTML(m.message) + '</div>' +
+        (m.date ? '<div class="msg-date">' + escapeHTML(String(m.date)) + '</div>' : '');
+      wall.appendChild(item);
+    });
+  }
+
+  // JSONP load (bypasses SharePoint/CORS)
+  function loadMessages() {
+    if (WEBAPP_URL === 'YOUR_WEBAPP_URL_HERE') {
+      document.getElementById('loadingSpinner').textContent = 'Connect the Google Apps Script URL to load messages.';
+      return;
+    }
+    const cbName = 'cb_' + Date.now();
+    window[cbName] = function(data) {
+      renderMessages(data);
+      delete window[cbName];
+      script.remove();
+    };
+    const script = document.createElement('script');
+    script.src = WEBAPP_URL + '?callback=' + cbName;
+    script.onerror = function(){ document.getElementById('loadingSpinner').textContent = 'Could not load messages.'; };
+    document.body.appendChild(script);
+  }
+
+  function submitMessage() {
+    const nameInput = document.getElementById('nameInput');
+    const messageInput = document.getElementById('messageInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+    const errorMsg = document.getElementById('errorMsg');
+
+    const name = nameInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (!name || !message) {
+      alert('Please fill in both your name and a message.');
+      return;
+    }
+    if (WEBAPP_URL === 'YOUR_WEBAPP_URL_HERE') {
+      alert('Paste your Google Apps Script URL into the HTML file first.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+    successMsg.classList.remove('show');
+    errorMsg.classList.remove('show');
+
+    // Hidden form -> hidden iframe POST (bypasses CORS)
+    const iframeName = 'submitFrame_' + Date.now();
+    const iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = WEBAPP_URL;
+    form.target = iframeName;
+    form.style.display = 'none';
+
+    const nameField = document.createElement('input');
+    nameField.name = 'name';
+    nameField.value = name;
+    form.appendChild(nameField);
+
+    const msgField = document.createElement('input');
+    msgField.name = 'message';
+    msgField.value = message;
+    form.appendChild(msgField);
+
+    document.body.appendChild(form);
+    form.submit();
+
+    nameInput.value = '';
+    messageInput.value = '';
+    successMsg.classList.add('show');
+    setTimeout(function() { successMsg.classList.remove('show'); }, 3500);
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Birthday Wishes ☕';
+
+    setTimeout(function() {
+      iframe.remove();
+      form.remove();
+      loadMessages();
+    }, 2000);
+  }
+
+  loadMessages();
+  setInterval(loadMessages, 30000);
+</script>
+
+</body>
+</html>
